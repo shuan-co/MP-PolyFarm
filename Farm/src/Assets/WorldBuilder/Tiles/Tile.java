@@ -13,8 +13,6 @@ import javafx.scene.Node;
 public final class Tile {
     private boolean isPlowed = false,
                     containsSeed = false,
-                    containsRocks = false,
-                    isFertilized = false,
                     isWithered = false;
     
     private int waterLevel = 0;

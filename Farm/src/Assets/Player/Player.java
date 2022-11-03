@@ -1,6 +1,7 @@
 package Assets.Player;
 
 import Assets.Player.Controller.Controller;
+import Assets.Player.Farmer.Hotbar.Hotbar;
 import Assets.Player.Farmer.Hotbar.InfoBar;
 import Assets.Player.Farmer.Tools.ToolsTemplate;
 import Assets.Player.Farmer.Tools.ToolsChildren.Harvestor.Harvestor;
@@ -20,8 +21,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 
@@ -32,6 +33,8 @@ public final class Player extends Controller {
 
     // Hotbar & InfoBar Selection
     private int currentHotBar = 0;
+    private Group userInterface = new Group();
+    private Hotbar hotBar = new Hotbar();
     private FXMLLoader infoBar = new FXMLLoader(getClass().getResource("./Farmer/Hotbar/infoBar.fxml"));
 
     // Tools
@@ -41,8 +44,7 @@ public final class Player extends Controller {
     private int currentTileIndex = 0,
                 previousTileIndex = 49;
 
-    private Tile currentTileSelected = Farm.getLandTiles()[currentTileIndex],
-                 previousTileSelected = Farm.getLandTiles()[previousTileIndex];
+    private Tile currentTileSelected = Farm.getLandTiles()[currentTileIndex];
 
     private Node currentTileTexture = Farm.getLandTilesTextures().getChildren().get(currentTileIndex),
                  previousTileTexture = Farm.getLandTilesTextures().getChildren().get(previousTileIndex);
@@ -50,6 +52,13 @@ public final class Player extends Controller {
     
     // Key Input Delay
     private Delay delay = new Delay();
+
+    // Constructor
+    public Player() throws IOException {
+        userInterface.getChildren().add(hotBar.getHotbar());
+        userInterface.getChildren().add(infoBar.load());
+        updateUserInterface();
+    }
 
     // Plant Seeds Method
     public void plantSeed(){
@@ -61,10 +70,10 @@ public final class Player extends Controller {
 
             Farm.getSeedsPlanted()[currentTileIndex] = new Turnip();
             Farm.getSeedsPlanted()[currentTileIndex].setModelTextures(getClass().getResource("../WorldBuilder/Seeds/Seeds/Turnip/Models/turnip.obj"));
-            Farm.getLandTiles()[currentTileIndex].setSeedPlanted(Farm.getSeedsPlanted()[currentTileIndex]);
-            Farm.getLandTiles()[currentTileIndex].updateContainsSeed();
+            currentTileSelected.setSeedPlanted(Farm.getSeedsPlanted()[currentTileIndex]);
+            currentTileSelected.updateContainsSeed();
 
-            Farm.getSeedsPlantedTextures().getChildren().set(currentTileIndex, SystemUtility.loadModel(Farm.getSeedsPlanted()[currentTileIndex].getModelTextures()));
+            Farm.getSeedsPlantedTextures().getChildren().set(currentTileIndex, SystemUtility.loadModel(currentTileSelected.getSeedPlanted().getModelTextures()));
             Farm.getSeedsPlantedTextures().getChildren().get(currentTileIndex).setTranslateX(tileCoordinateX);
             Farm.getSeedsPlantedTextures().getChildren().get(currentTileIndex).setTranslateY(tileCoordinateY-50);
             Farm.getSeedsPlantedTextures().getChildren().get(currentTileIndex).setTranslateZ(tileCoordinateZ);
@@ -84,32 +93,60 @@ public final class Player extends Controller {
     public int getCurrentTileIndex(){
         return currentTileIndex;
     }
-
-
-    public Parent getInfoBar() throws IOException{
-        return infoBar.load();
+    public Tile getCurrentTile(){
+        return currentTileSelected;
+    }
+    public Node getCurrentTileTexture(){
+        return currentTileTexture;
     }
 
-    public void updateInfoBar(){
+    public void updateUserInterface(){
         InfoBar infoBarController = (InfoBar) infoBar.getController();
         infoBarController.update(this);
+        hotBar.updateSelection(currentHotBar);
+    }
+
+    public Group getUserInterface(){
+        return userInterface;
     }
 
     // Update Tile Selection
     private void updateSelectedTile(){
         currentTileSelected = Farm.getLandTiles()[currentTileIndex];
-        previousTileSelected = Farm.getLandTiles()[previousTileIndex];
         currentTileTexture = Farm.getLandTilesTextures().getChildren().get(currentTileIndex);
         previousTileTexture = Farm.getLandTilesTextures().getChildren().get(previousTileIndex);
     }
-
-    //
+    private void moveUp(){
+        if (Arrays.binarySearch(new int[]{4,9,14,19,24,29,34,39,44,49}, currentTileIndex) > -1)
+            currentTileIndex -= 4;
+        else 
+            currentTileIndex++;
+    }
+    private void moveDown(){
+        if (Arrays.binarySearch(new int[]{0,5,10,15,20,25,30,35,40,45}, currentTileIndex) > -1)
+            currentTileIndex += 4;
+        else 
+            currentTileIndex--;
+    }
+    private void moveLeft(){
+        if (currentTileIndex >= 45 && currentTileIndex <= 49)
+            currentTileIndex -= 45;
+        else
+            currentTileIndex += 5;
+    }
+    private void moveRight(){
+        if (currentTileIndex >= 0 && currentTileIndex <= 4)
+            currentTileIndex += 45;
+        else
+            currentTileIndex -= 5;
+    }
 
 
     // Animations
     private void playAnimations(){
         Tile.selectTile(currentTileTexture, previousTileTexture);
-        Seed.selectSeedPlanted(currentTileIndex, previousTileIndex);
+        Seed.selectSeedPlanted(Farm.getSeedsPlantedTextures().getChildren().get(currentTileIndex), 
+                               Farm.getSeedsPlantedTextures().getChildren().get(previousTileIndex));
     }
 
     // Event Methods [KeyBoard]
@@ -121,66 +158,34 @@ public final class Player extends Controller {
                 if (delay.isPaused()){
                     previousTileIndex = currentTileIndex;
                     switch(event.getCode()){
-                        case W:
-                            if (Arrays.binarySearch(new int[]{4,9,14,19,24,29,34,39,44,49}, currentTileIndex) > -1)
-                                currentTileIndex -= 4;
-                            else 
-                                currentTileIndex++;
-                            break;
-                        case S:
-                            if (Arrays.binarySearch(new int[]{0,5,10,15,20,25,30,35,40,45}, currentTileIndex) > -1)
-                                currentTileIndex += 4;
-                            else 
-                                currentTileIndex--;
-                            break;
-                        case A: 
-                            if (currentTileIndex >= 45 && currentTileIndex <= 49)
-                                currentTileIndex -= 45;
-                            else
-                                currentTileIndex += 5;
-                            break;
-                        case D:
-                            if (currentTileIndex >= 0 && currentTileIndex <= 4)
-                                currentTileIndex += 45;
-                            else
-                                currentTileIndex -= 5;
-                            break;
-                        default:
-                            break;
+                        case W: moveUp(); break;
+                        case S: moveDown(); break;
+                        case A: moveLeft(); break;
+                        case D: moveRight(); break;
+                        default: break;
                     }
                     updateSelectedTile();
                     playAnimations();
                 }
                 switch(event.getCode()){
                     case SPACE:
-                        if ((float) Farm.getLandTilesTextures().getChildren().get(currentTileIndex).getTranslateY() <= - 200){
+                        if ((float) currentTileTexture.getTranslateY() <= - 200){
                             if (currentHotBar == 2)
                                 plantSeed();
                             else if (currentHotBar == 4)
                                 DaySystem.newDay();
                             else
-                                tools[currentHotBar].applyAction(currentTileIndex);
+                                tools[currentHotBar].applyAction();
                         }
                         break;
-                    case DIGIT1:
-                        currentHotBar = 0;
-                        break;
-                    case DIGIT2:
-                        currentHotBar = 1;
-                        break;
-                    case DIGIT3:
-                        currentHotBar = 2;
-                        break;
-                    case DIGIT4:
-                        currentHotBar = 3;
-                        break;
-                    case DIGIT5:
-                        currentHotBar = 4;
-                        break;
-                    default:
-                        break;
+                    case DIGIT1: currentHotBar = 0; break;
+                    case DIGIT2: currentHotBar = 1; break;
+                    case DIGIT3: currentHotBar = 2; break;
+                    case DIGIT4: currentHotBar = 3; break;
+                    case DIGIT5: currentHotBar = 4; break;
+                    default: break;
                 }
-                updateInfoBar();
+                updateUserInterface();
             }
         }); 
     }

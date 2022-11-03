@@ -12,34 +12,33 @@ public class Harvestor extends ToolsTemplate{
     }
 
     @Override
-    public void applyAction(int currentTileIndex){
-        if (!Farm.getLandTiles()[currentTileIndex].getContainsSeed())
+    public void applyAction(){
+        if (!super.getCurrentTile().getContainsSeed())
             return;
-        if (Farm.getLandTiles()[currentTileIndex].getSeedPlanted().getHarvestTime() == 0 && 
-            !Farm.getLandTiles()[currentTileIndex].getIsWithered()){
-            float harvestTotal = Farm.getLandTiles()[currentTileIndex].getSeedPlanted().getHarvestProduce() * 
-                                (Farm.getLandTiles()[currentTileIndex].getSeedPlanted().getBasePrice().getValue() +
-                                0);
+        if (super.getCurrentTile().getSeedPlanted().getHarvestTime() == 0 && 
+            !super.getCurrentTile().getIsWithered()){
+            float harvestTotal = super.getCurrentTile().getSeedPlanted().getHarvestProduce() * 
+                                (super.getCurrentTile().getSeedPlanted().getBasePrice().getValue() + 0);
             int waterLevel = 0;
-            if (Farm.getLandTiles()[currentTileIndex].getWaterLevel() >= Farm.getLandTiles()[currentTileIndex].getSeedPlanted().getWaterNeeds()[1])
-                waterLevel = Farm.getLandTiles()[currentTileIndex].getSeedPlanted().getWaterNeeds()[1];
+            if (super.getCurrentTile().getWaterLevel() >= super.getCurrentTile().getSeedPlanted().getWaterNeeds()[1])
+                waterLevel = super.getCurrentTile().getSeedPlanted().getWaterNeeds()[1];
             else
-                waterLevel = Farm.getLandTiles()[currentTileIndex].getWaterLevel();
+                waterLevel = super.getCurrentTile().getWaterLevel();
 
             float waterBonus = harvestTotal * 0.2f * (waterLevel - 1);
             float fertilizerBonus = harvestTotal * 0.5f * 0;
             float finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
 
             super.getOwner().getCoins().updateValue(finalHarvestPrice);
-            super.getOwner().getExperience().updateValue(Farm.getLandTiles()[currentTileIndex].getSeedPlanted().getExperience().getValue());
+            super.getOwner().getExperience().updateValue(super.getCurrentTile().getSeedPlanted().getExperience().getValue());
             
             // Reset Tile
-            Farm.getLandTiles()[currentTileIndex].updateIsPlowed();
-            Farm.getLandTiles()[currentTileIndex].resetWaterLevel();
-            Farm.getLandTiles()[currentTileIndex].updateContainsSeed();
-            Farm.getLandTiles()[currentTileIndex].updateTileState();
-            Farm.getSeedsPlanted()[currentTileIndex] = null;
-            Farm.getSeedsPlantedTextures().getChildren().set(currentTileIndex, new Group());
+            super.getCurrentTile().updateIsPlowed();
+            super.getCurrentTile().resetWaterLevel();
+            super.getCurrentTile().updateContainsSeed();
+            super.getCurrentTile().updateTileState();
+            Farm.getSeedsPlanted()[super.getOwner().getCurrentTileIndex()] = null;
+            Farm.getSeedsPlantedTextures().getChildren().set(super.getOwner().getCurrentTileIndex(), new Group());
         }
     }
     

@@ -35,15 +35,13 @@ public class PolyFarm extends Application{
 
         // 2D UI
         AnchorPane globalRoot = new AnchorPane();
-        globalRoot.getChildren().add(player.getInfoBar());
+        globalRoot.getChildren().add(player.getUserInterface());
         Scene worldScene = new Scene(globalRoot, 1920, 1080, true);
         
         //3D UI
         Farm.initFarm();
         SubScene sub = new SubScene(Farm.getFarm(), 1920, 1080, true, SceneAntialiasing.BALANCED);
         globalRoot.getChildren().add(sub);
-        
-        player.updateInfoBar();
 
         // Primary Stage Layout / Application itself
         sub.setCamera(player.getPlayerCamera());

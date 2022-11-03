@@ -15,7 +15,7 @@
             "name": "Launch PolyFarm",
             "request": "launch",
             "mainClass": "PolyFarm",
-            "projectName": "Farm_ced10412",
+            "projectName": "Farm_846e6fc7",
             "vmArgs": "--module-path \"C:/Applications/Programming/javafx-sdk-19/lib\" --add-modules javafx.controls,javafx.fxml"
         }
     ]

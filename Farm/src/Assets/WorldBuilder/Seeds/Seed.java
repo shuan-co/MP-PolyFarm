@@ -5,7 +5,6 @@ import java.util.Random;
 
 import Assets.Player.Items.Coins.Coins;
 import Assets.Player.Items.Experience.Experience;
-import Assets.WorldBuilder.Farm;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
 
@@ -110,9 +109,7 @@ public abstract class Seed {
 
 
     // Animations
-    public static void selectSeedPlanted(int currentTileIndex, int previousTileIndex){
-        Node currentTile = Farm.getSeedsPlantedTextures().getChildren().get(currentTileIndex);
-        Node previousTile = Farm.getSeedsPlantedTextures().getChildren().get(previousTileIndex);
+    public static void selectSeedPlanted(Node currentTile, Node previousTile){
         AnimationTimer timer = new AnimationTimer() {
             double speed = 1;
             @Override

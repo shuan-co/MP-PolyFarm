@@ -2,7 +2,6 @@ package Assets.Player.Farmer.Tools.ToolsChildren.Plow;
 
 import Assets.Player.Player;
 import Assets.Player.Farmer.Tools.ToolsTemplate;
-import Assets.WorldBuilder.Farm;
 
 
 public class Plow extends ToolsTemplate{
@@ -11,12 +10,11 @@ public class Plow extends ToolsTemplate{
     }
 
     @Override
-    public void applyAction(int currentTileSelected){
-        super.selectTile(Farm.getLandTiles()[currentTileSelected]);
-        if (!super.getTileSelected().getIsPlowed()){
-            super.getTileSelected().updateIsPlowed();
-            super.getTileSelected().updateTileState();
-            super.getOwner().getExperience().updateValue(0.5f);
+    public void applyAction(){
+        if (!super.getCurrentTile().getIsPlowed()){
+            super.getCurrentTile().updateIsPlowed();
+            super.getCurrentTile().updateTileState();
+            super.getOwner().getExperience().updateValue(super.getExperience().getValue());
         }
     }
 }

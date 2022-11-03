@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Assets.Player.Farmer.Hotbar.InfoBar">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text layoutX="22.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Stats" wrappingWidth="132.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="60.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coins:" wrappingWidth="72.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="60.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exp:" wrappingWidth="47.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="22.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tile Stats:" wrappingWidth="103.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="60.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seed:" wrappingWidth="103.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="59.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Water Level:" wrappingWidth="132.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="59.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State:" wrappingWidth="132.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="22.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seed Stats:" wrappingWidth="115.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="60.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Harvest:" wrappingWidth="115.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="60.0" layoutY="397.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exp:" wrappingWidth="115.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="60.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Water Needs:" wrappingWidth="144.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="59.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fertilizer Needs:" wrappingWidth="168.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text fx:id="coins" layoutX="139.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="72.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text fx:id="exp" layoutX="139.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="72.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text fx:id="state" layoutX="132.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="132.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text fx:id="seed" layoutX="135.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="151.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text fx:id="waterLevel" layoutX="191.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="72.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text fx:id="harvest" layoutX="144.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="168.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text fx:id="seedEXP" layoutX="104.0" layoutY="397.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="187.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text fx:id="waterNeeds" layoutX="211.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="94.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text fx:id="fertilizerNeeds" layoutX="228.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="72.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="60.0" layoutY="499.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Harvest Produce:" wrappingWidth="187.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text fx:id="harvestProduce" layoutX="239.0" layoutY="500.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="103.13671875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

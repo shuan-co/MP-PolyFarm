@@ -5,17 +5,19 @@ import Assets.Player.Controller.Events.KeyEvents;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.transform.Rotate;
 
+// Template class that manages camera perspective
 public abstract class Controller implements Camera, KeyEvents{
     // Camera Attributes
-    private PerspectiveCamera playerCamera;
-    private int[] playerCoordinates = new int[3];
+    private PerspectiveCamera playerCamera; // 3D Scene Camera
+    private int[] playerCoordinates = new int[3]; // [x,y,z] coordinates
 
-    // Camera Methods
-    @Override
-    public void createPlayerCamera(int[] playerCoordinates) {
+    // Constructor to Initialize Camera Values of the Scene, default location, attributes and rotations
+    public Controller(int[] playerCoordinates){
+        // Save coordinates to local class attribute
         this.playerCoordinates = playerCoordinates;
 
-        playerCamera = new PerspectiveCamera(true);
+        // new Perspective Camera for 3D View of scene
+        playerCamera = new PerspectiveCamera(true); // true as camera movement will be done.
         playerCamera.setNearClip(1); // Object Collision
         playerCamera.setFarClip(10000); // Render Distance
 
@@ -33,6 +35,9 @@ public abstract class Controller implements Camera, KeyEvents{
         playerCamera.getTransforms().addAll(rotate);
     }
 
+    // Camera Methods
+
+    // Simply changes the camera perspective and coordinates of the player
     @Override
     public void updateCameraCoordinates(int[] playerCoordinates) {
         this.playerCoordinates = playerCoordinates;
@@ -43,11 +48,11 @@ public abstract class Controller implements Camera, KeyEvents{
         playerCamera.setTranslateZ(this.playerCoordinates[2]);
     }
 
+    // Getters & Setters
     @Override
     public PerspectiveCamera getPlayerCamera() {
         return playerCamera;
     }
-
     public int[] getPlayerCoordinates(){
         return playerCoordinates;
     }

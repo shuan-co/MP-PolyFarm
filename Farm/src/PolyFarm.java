@@ -11,9 +11,10 @@ import Assets.Player.Player;
 import Assets.Utilities.GameUtility;
 import Assets.WorldBuilder.Farm;
 
-public class PolyFarm extends Application{
+// Main Class, where all screen presentation and main game loop occurs
+public final class PolyFarm extends Application{
 
-    // Game Stage; Where main game interface is presented
+    // Game Stage; Where main game interface and loop occurs
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -24,21 +25,20 @@ public class PolyFarm extends Application{
             return;
         }
 
-        // Test
+        // Initialize Farm
         Farm.setLandTiles(GameUtility.generateTiles());
         Farm.setLandTilesTextures(GameUtility.loadTileGroup());
         Farm.setSeedsPlantedTextures(GameUtility.generateSeedTextures());
 
-        Player player = new Player();
-        int[] coordinates = {-2000,-1200, 800};
-        player.createPlayerCamera(coordinates);
+        // Create new Player
+        Player player = new Player(new int[]{-2000,-1200, 800});
 
-        // 2D UI
+        // 2D GUI
         AnchorPane globalRoot = new AnchorPane();
         globalRoot.getChildren().add(player.getUserInterface());
         Scene worldScene = new Scene(globalRoot, 1920, 1080, true);
         
-        //3D UI
+        //3D GUI
         Farm.initFarm();
         SubScene sub = new SubScene(Farm.getFarm(), 1920, 1080, true, SceneAntialiasing.BALANCED);
         globalRoot.getChildren().add(sub);
@@ -49,9 +49,12 @@ public class PolyFarm extends Application{
         primaryStage.setScene(worldScene);
         primaryStage.setTitle("PolyFarm");
         primaryStage.show();
+
+        // Get user input
         player.getKeyInput(worldScene);
     }
 
+    // Execute 3D and 2D GUI and execute main game loop
     public static void main(String[] args) throws Exception {
         launch(args);
     }

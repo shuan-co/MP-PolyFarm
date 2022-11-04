@@ -60,6 +60,8 @@ public final class Player extends Controller {
                  previousTileTexture = Farm.getLandTilesTextures()
                                            .getChildren()
                                            .get(previousTileIndex);
+    
+    private Group[] farmTextures = Farm.getFarmTextures();
 
     // Constructor, get parent constructor to assign camera coordinates, update GUI to default selected tile
     // IOException needed for FXMLLoader
@@ -135,6 +137,9 @@ public final class Player extends Controller {
     }
     public Group getUserInterface(){
         return userInterface.getUserInterface();
+    }
+    public Group[] getPlayerFarm(){
+        return farmTextures;
     }
 
     // Update current Tile, Tile Texture & previous Tile texture selected

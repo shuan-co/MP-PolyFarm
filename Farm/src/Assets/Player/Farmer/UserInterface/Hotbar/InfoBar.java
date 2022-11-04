@@ -36,13 +36,13 @@ public final class InfoBar {
     private Text harvestProduce;
 
     // FXML Loader
-    private static FXMLLoader loader = new FXMLLoader(InfoBar.class
-                                                             .getResource("./infoBar.fxml"));
+    private FXMLLoader loader = new FXMLLoader(InfoBar.class
+                                                      .getResource("./infoBar.fxml"));
 
     
     // Get FXML Loader
     // IOException handling needed for FXMLLoader
-    public static FXMLLoader getInfoBar() throws IOException {
+    public FXMLLoader getInfoBar() throws IOException {
         return loader;
     }
 
@@ -51,9 +51,9 @@ public final class InfoBar {
 
         // Assign Current Tile & Seed to a variable to reduce redundancy due to repetead usage
         // Current Tile & Seed atttributes will be used for the information to be presented
-        Tile currentTileSelected = Farm.getLandTiles()[player.getCurrentTileIndex()];
-        Seed currentSeedSelected = Farm.getSeedsPlanted()[player.getCurrentTileIndex()];
-
+        Tile currentTileSelected = player.getCurrentTile();
+        Seed currentSeedSelected = player.getCurrentTile()
+                                         .getSeedPlanted();
 
         // Update Current Information on GUI based on Tile & Seed Attributes
         coins.setText(String.format("%.2f", player.getCoins()

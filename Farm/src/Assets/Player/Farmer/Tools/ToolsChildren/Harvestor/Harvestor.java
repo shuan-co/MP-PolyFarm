@@ -2,7 +2,6 @@ package Assets.Player.Farmer.Tools.ToolsChildren.Harvestor;
 
 import Assets.Player.Player;
 import Assets.Player.Farmer.Tools.ToolsTemplate;
-import Assets.WorldBuilder.Farm;
 import javafx.scene.Group;
 
 // Child of ToolsTemplate, purpose is to harvest the produce of the seed from the tile given a condition
@@ -82,14 +81,16 @@ public final class Harvestor extends ToolsTemplate{
 
             super.getCurrentTile()
                  .updateTileState();
-
-            Farm.getSeedsPlanted()[super.getOwner()
-                                        .getCurrentTileIndex()] = null;
-
-            Farm.getSeedsPlantedTextures()
-                .getChildren()
-                .set(super.getOwner()
-                          .getCurrentTileIndex(), new Group());
+            
+            super.getOwner()
+                 .getCurrentTile()
+                 .setSeedPlanted(null);
+            
+            super.getOwner()
+                 .getPlayerFarm()[1]
+                 .getChildren()
+                 .set(super.getOwner()
+                           .getCurrentTileIndex(), new Group());
         }
     }
     

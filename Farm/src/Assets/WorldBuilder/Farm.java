@@ -51,5 +51,8 @@ public final class Farm {
     public static Group getFarm(){
         return farmGroup;
     }
+    public static Group[] getFarmTextures(){
+        return new Group[]{landTilesTextures, seedsPlantedTextures};
+    }
 
 }
